@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Todo List Exercise</title>
+    <script src="jquery.js"></script>
+    <script>
+    /*
+    Make a Todo List
+
+    0. Make it so that after entering the task description, in the text field and clicking the "Add Task" button, a new task appears inside the element with the id todo-list.
+    1. the ability to remove tasks (add an x button)
+    2. the ability to check off tasks - strikes them out wo removing (add a checkbox)
+    3. the ability to delete a task
+    4. the ability to edit an existing task
+
+    */
+    $(function() {
+      var edit = '<button class="edit">Edit task</button>';
+      var done = '<button class="done">Finished</button>';
+      var del = '<button class="delete">Delete</button>';
+      $("#add-button").click(function() {
+        var textInput = $("#description").val();
+        $("#todo-list").append("<li>" + textInput + edit + done + del + "</li>" );
+        $("#description").val("");
+      })
+
+      $("#todo-list").on("click",".delete", function() {
+        var textInput = $(".delete").text();
+        $(this).parent("li").remove();
+      })
+
+      $("#todo-list").on("click", ".done", function() {
+        if ($("li").hasClass("strike")) {
+          $(this).parent("").removeClass("strike");
+        } else {
+          $(this).parent("").addClass("strike");
+        }
+      })
+      $("#todo-list").on("click", ".edit", function() {
+        var textInput = $("li").text();
+        console.log(textInput);
+      })
+    });
+    </script>
+    <style>
+    #wrapper {
+      max-width: 480px;
+      margin: auto;
+    }
+
+    #description, #search, #todo-list {
+      font-size: 1.5em;
+    }
+
+    .strike {
+      text-decoration: line-through;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <input id="description" type="text" name="description" value="">
+      <button id="add-button">Add Task</button>
+      <ul id="todo-list">
+        <li>Feed the cat
+          <button class="edit">Edit task</button>
+          <button class="done">Finished</button>
+          <button class="delete">Delete</button></li>
+
+
+      </ul>
+    </div>
+  </body>
+</html>
